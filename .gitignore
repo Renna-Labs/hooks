@@ -8,5 +8,4 @@ types
 example/.cache
 .DS_Store
 .vscode
-/*.js
 /*.d.ts
