@@ -21,11 +21,11 @@
     "lint-staged": {
         "*.{ts,tsx,json,md}": [
             "prettier --write",
-            "git add"
+            "git add ."
         ],
         "*.{ts,tsx}": [
             "eslint --fix",
-            "git add"
+            "git add ."
         ]
     },
     "repository": {
