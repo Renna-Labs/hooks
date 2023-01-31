@@ -2,12 +2,16 @@
     "name": "@rennalabs/hooks",
     "version": "1.0.0",
     "description": "",
-    "main": "index.js",
-    "typings": "index.d.ts",
+    "main": "dist/index.js",
+    "typings": "types/index.d.ts",
+    "files": [
+        "dist",
+        "types"
+    ],
     "scripts": {
-        "start": "NODE_ENV=development babel -w ./src --out-dir . --extensions \".ts,.tsx\"",
-        "build": "NODE_ENV=production npm run clean && babel ./src --out-dir . --extensions \".ts,.tsx\" && tsc",
-        "clean": "rimraf *.d.ts *.js",
+        "start": "NODE_ENV=development babel -w ./src --out-dir ./dist --extensions \".ts,.tsx\"",
+        "build": "NODE_ENV=production npm run clean && babel ./src --out-dir ./dist --extensions \".ts,.tsx\" && tsc",
+        "clean": "rimraf types dist",
         "format": "prettier --write \"**/*.{ts,tsx,json,md}\"",
         "test": "jest",
         "test:watch": "jest --watch",
@@ -50,9 +54,6 @@
     "homepage": "https://github.com/Renna-Labs/hooks#readme",
     "jest": {
         "testEnvironment": "jest-environment-jsdom",
-        "setupFilesAfterEnv": [
-            "<rootDir>/tests/jest.setup.js"
-        ],
         "testRegex": "test.js$",
         "moduleDirectories": [
             "./node_modules",

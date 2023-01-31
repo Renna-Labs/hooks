@@ -1,0 +1,10 @@
+src
+node_modules
+.babelrc
+.git/
+*.log
+*.lock
+*.map
+tests
+.circleci
+tsconfig.json

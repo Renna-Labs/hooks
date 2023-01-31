@@ -3,6 +3,7 @@ yarn-error.log
 node_modules
 temp
 dist
+types
 *.log
 example/.cache
 .DS_Store
