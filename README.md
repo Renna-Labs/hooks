@@ -1,5 +1,7 @@
 # Renna Labs' Hooks
 
+[![npm version](https://badge.fury.io/js/@rennalabs%2Fhooks.svg)](https://badge.fury.io/js/@rennalabs%2Fhooks)
+
 A library of useful hooks.
 
 ## Install
