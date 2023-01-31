@@ -1,0 +1,11 @@
+yarn.lock
+yarn-error.log
+node_modules
+temp
+dist
+*.log
+example/.cache
+.DS_Store
+.vscode
+/*.js
+/*.d.ts
