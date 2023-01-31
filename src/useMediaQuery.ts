@@ -13,7 +13,10 @@ const errorMessage =
  * Returns the validity state of the given media query.
  *
  */
-export const useMediaQuery = (mediaQuery: string): boolean | null => {
+
+type IsMediaQueryReturnType = boolean | null;
+
+export const useMediaQuery = (mediaQuery: string): IsMediaQueryReturnType => {
     if (!isClient || !isAPISupported('matchMedia')) {
         console.warn(errorMessage);
         return null;
