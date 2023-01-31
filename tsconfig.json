@@ -1,23 +1,10 @@
 {
-    "compilerOptions": {
-        "declaration": true,
-        "outDir": "./types",
-        "baseUrl": ".",
-        "target": "es5",
-        "lib": ["dom", "dom.iterable", "esnext"],
-        "allowJs": true,
-        "skipLibCheck": true,
-        "strict": true,
-        "forceConsistentCasingInFileNames": true,
-        "emitDeclarationOnly": true,
-        "esModuleInterop": true,
-        "module": "esnext",
-        "moduleResolution": "node",
-        "resolveJsonModule": true,
-        "isolatedModules": true,
-        "jsx": "preserve",
-        "incremental": true
-    },
-    "include": ["**/*.ts", "**/*.tsx"],
-    "exclude": ["node_modules"]
+  "extends": "@rennalabs/tsconfig/tsconfig.json",
+  "compilerOptions": {
+    "declaration": true,
+    "outDir": "./types",
+    "emitDeclarationOnly": true
+  },
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules"]
 }
