@@ -2,7 +2,7 @@ import '@testing-library/jest-dom';
 import React from 'react';
 import { renderHook, fireEvent, render, screen } from '@testing-library/react';
 
-import { useMousePosition } from '../src/useMousePosition';
+import { useMousePosition } from './useMousePosition';
 
 const Target: React.FunctionComponent<any> = () => {
   const { ref, x, y } = useMousePosition();

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { throttle } from './utils';
+import { throttle } from '../utils';
 
 const events = new Set<() => void>();
 const onResize = () => events.forEach(fn => fn());

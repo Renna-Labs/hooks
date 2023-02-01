@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { isClient, isAPISupported } from './utils';
+import { isClient, isAPISupported } from '../utils';
 
 function getInitialValue(query: string) {
   if (isClient && isAPISupported('matchMedia')) {

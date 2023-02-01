@@ -32,11 +32,15 @@ export function useMousePosition<T extends HTMLElement = any>(
   useEffect(() => {
     const element = ref?.current ? ref.current : document;
     element.addEventListener('mousemove', setMousePosition as any);
-    if (options.resetOnExit) {element.addEventListener('mouseleave', resetMousePosition as any);}
+    if (options.resetOnExit) {
+      element.addEventListener('mouseleave', resetMousePosition as any);
+    }
 
     return () => {
       element.removeEventListener('mousemove', setMousePosition as any);
-      if (options.resetOnExit) {element.removeEventListener('mouseleave', resetMousePosition as any);}
+      if (options.resetOnExit) {
+        element.removeEventListener('mouseleave', resetMousePosition as any);
+      }
     };
   }, [ref.current]);
 

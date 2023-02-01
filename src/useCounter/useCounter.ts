@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { clamp } from './utils';
+import { clamp } from '../utils';
 
 const DEFAULT_OPTIONS = {
   min: -Infinity,

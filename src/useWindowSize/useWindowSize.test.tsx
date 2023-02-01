@@ -2,7 +2,7 @@ import React from 'react';
 import '@testing-library/jest-dom';
 import { render, cleanup } from '@testing-library/react';
 
-import { useWindowSize } from '../src/useWindowSize';
+import { useWindowSize } from './useWindowSize';
 
 function App() {
   const { width, height } = useWindowSize();

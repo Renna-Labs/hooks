@@ -15,16 +15,20 @@ module.exports = {
     },
   },
   rules: {
+    // eslint rules
     'no-use-before-define': 'off',
     'prefer-rest-params': 'off',
-    '@typescript-eslint/no-explicit-any': 'off',
-    '@typescript-eslint/ban-ts-comment': 'off',
     'no-param-reassign': 'off',
     'no-void': 'off',
     'consistent-return': 'off',
     'no-restricted-syntax': 'off',
     'arrow-body-style': 'off',
+    'no-console': 'off',
     'no-undef': 'off',
     'prefer-arrow-callback': 'off',
+    // typescript rules
+    '@typescript-eslint/no-explicit-any': 'off',
+    '@typescript-eslint/ban-ts-comment': 'off',
+    '@typescript-eslint/no-empty-function': 'off',
   },
 };
