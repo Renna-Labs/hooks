@@ -79,7 +79,7 @@
     "@babel/preset-react": "^7.x.x",
     "@babel/preset-typescript": "^7.x.x",
     "@rennalabs/eslint-config": "^1.0.2",
-    "@rennalabs/prettier-config": "^1.0.2",
+    "@rennalabs/prettier-config": "1.0.3",
     "@rennalabs/tsconfig": "1.0.1",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",

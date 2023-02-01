@@ -139,24 +139,81 @@ const Example = () => {
 
 #### Arguments
 
-- `ref: useRef`: A ref to an element created with useRef
-- `func: function`: a function to be fired within an effect when a click outside the ref is detected
+- `handler: function`: function that will be called on outside click.
+- `events?: string[]`: optional list of events that indicate outside click.
+- `nodes?: HTMLElement[]`: optional list of nodes that should not trigger outside click event.
+
+Hook returns React ref object that should be passed to element on which outside clicks should be captured.
 
 #### Example
 
 ```js
+import { useState } from 'react';
 import { useOnClickOutside } from '@rennalabs/hooks';
 
-const Example = () => {
-  // Create a ref that we add to the element for which we want to detect outside clicks
-  const ref = useRef();
-  // State for our modal
-  const [isModalOpen, setModalOpen] = useState(false);
-  // Call hook passing in the ref and a function to call on outside click
-  useOnClickOutside(ref, () => setModalOpen(false));
+function Demo() {
+  const [opened, setOpened] = useState(false);
+  const ref = useOnClickOutside(() => setOpened(false));
 
-  // ...
-};
+  return (
+    <>
+      <button onClick={() => setOpened(true)}>Open dropdown</button>
+
+      {opened && (
+        <DropDown ref={ref}>
+          <span>Click outside to close</span>
+        </DropDown>
+      )}
+    </>
+  );
+}
+```
+
+#### Example with Events
+
+```js
+import { useState } from 'react';
+import { useOnClickOutside } from '@rennalabs/hooks';
+
+function Demo() {
+  const [opened, setOpened] = useState(false);
+  const ref = useClickOutside(() => setOpened(false), ['mouseup', 'touchend']);
+
+  return (
+    <>
+      <button onClick={() => setOpened(true)}>Open dropdown</button>
+
+      {opened && (
+        <DropDown ref={ref}>
+          <span>Click outside to close</span>
+        </DropDown>
+      )}
+    </>
+  );
+}
+```
+
+#### Example with nodes
+
+```js
+import { useState } from 'react';
+import { useOnClickOutside } from '@rennalabs/hooks';
+
+function Demo() {
+  const [dropdown, setDropdown] = useState(null);
+  const [control, setControl] = useState(null);
+
+  useClickOutside(() => console.log('clicked outside'), null, [control, dropdown]);
+
+  return (
+    <div>
+      <div ref={setControl}>Control</div>
+      <div>
+        <div ref={setDropdown}>Dropdown</div>
+      </div>
+    </div>
+  );
+}
 ```
 
 ### `useMediaQuery()`
