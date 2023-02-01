@@ -1,9 +1,15 @@
 import { useState, useEffect } from 'react';
 import { isClient, isAPISupported } from './utils';
 
-const errorMessage =
-  'matchMedia is not supported, this could happen both because window.matchMedia is not supported by' +
-  " your current browser or you're using the useMediaQuery hook whilst server side rendering.";
+function getInitialValue(query: string) {
+  if (isClient && isAPISupported('matchMedia')) {
+    return window.matchMedia(query).matches;
+  }
+
+  return false;
+}
+
+type IsMediaQueryReturnType = boolean | null;
 
 /**
  * Accepts a media query string then uses the
@@ -13,28 +19,24 @@ const errorMessage =
  * Returns the validity state of the given media query.
  *
  */
-
-type IsMediaQueryReturnType = boolean | null;
-
 export const useMediaQuery = (mediaQuery: string): IsMediaQueryReturnType => {
-  if (!isClient || !isAPISupported('matchMedia')) {
-    console.warn(errorMessage);
-    return null;
-  }
-
-  const [isVerified, setIsVerified] = useState<boolean>(!!window.matchMedia(mediaQuery).matches);
+  const [matches, setMatches] = useState<boolean>(getInitialValue(mediaQuery));
 
   useEffect(() => {
-    const mediaQueryList = window.matchMedia(mediaQuery);
-    const documentChangeHandler = () => setIsVerified(!!mediaQueryList.matches);
+    if (isClient && isAPISupported('matchMedia')) {
+      const mediaQueryList = window.matchMedia(mediaQuery);
+      const documentChangeHandler = () => setMatches(!!mediaQueryList.matches);
 
-    mediaQueryList.addListener(documentChangeHandler);
+      mediaQueryList.addListener(documentChangeHandler);
 
-    documentChangeHandler();
-    return () => {
-      mediaQueryList.removeListener(documentChangeHandler);
-    };
+      documentChangeHandler();
+      return () => {
+        mediaQueryList.removeListener(documentChangeHandler);
+      };
+    }
+
+    return undefined;
   }, [mediaQuery]);
 
-  return isVerified;
+  return matches;
 };
