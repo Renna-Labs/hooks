@@ -1,19 +1,19 @@
-export function throttle<T extends (...args: any[]) => void>(
+export function throttle<T extends(...args: any[]) => void>(
   func: T,
-  threshold: number = 250,
+  threshold = 250,
   scope?: any,
 ): T {
-  let last: number, deferTimer: number;
-  return function (this: any) {
-    let context = scope || this;
+  let last: number; let deferTimer: number;
+  return function(this: any) {
+    const context = scope || this;
 
-    let now = Date.now(),
-      args = arguments;
+    const now = Date.now();
+    const args = arguments;
     if (last && now < last + threshold) {
       // hold on to it
       clearTimeout(deferTimer);
       // @ts-ignore
-      deferTimer = setTimeout(function () {
+      deferTimer = setTimeout(function() {
         last = now;
         // @ts-ignore
         func.apply(context, args);
@@ -35,3 +35,17 @@ export const isAPISupported = (api: string): boolean => api in window;
  * Exports a boolean value reporting whether is client side or server side by checking on the window object
  */
 export const isClient: boolean = typeof window === 'object';
+
+/**
+ * Clamps a given value within a specified range.
+ *
+ * @param {number} value - The value to be clamped.
+ * @param {number} min - The minimum value of the range.
+ * @param {number} max - The maximum value of the range.
+ *
+ * @returns {number} The clamped value.
+ */
+
+export function clamp(value: number, min: number, max: number) {
+  return Math.min(Math.max(value, min), max);
+}

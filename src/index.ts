@@ -1,5 +1,8 @@
 export * from './utils';
 
+export { useOs } from './useOs';
+export { useHover } from './useHover';
+export { useCounter } from './useCounter';
 export { useTimeout } from './useTimeout';
 export { useInterval } from './useInterval';
 export { useMediaQuery } from './useMediaQuery';
