@@ -37,6 +37,7 @@ yarn add @rennalabs/hooks
   - [`useCounter()`](#useCounter)
   - [`useHover()`](#useHover)
   - [`useOs()`](#useOs)
+  - [`useMousePosition()`](#useMousePosition)
 
 ## Hooks
 
@@ -397,7 +398,7 @@ function Demo() {
 
 ### `useOs()`
 
-useOs detects user's os. Possible values are: undetermined, macos, ios, windows, android, linux. If os cannot be identified, for example, during server side rendering undetermined will be returned.
+useOs detects user's operating system. Possible values are: undetermined, macos, ios, windows, android, linux. If os cannot be identified, for example, during server side rendering undetermined will be returned.
 
 #### Example
 
@@ -409,6 +410,26 @@ function Demo() {
   return (
     <>
       Your operating system is <b>{os}</b>
+    </>
+  );
+}
+```
+
+### `useMousePosition()`
+
+Get mouse position relative to viewport or given element.
+
+#### Example
+
+```js
+import { useMousePosition } from '@rennalabs/hooks';
+
+function Demo() {
+  const { ref, x, y } = useMousePosition();
+
+  return (
+    <>
+      Mouse coordinates are <b>{`{ x: ${x}, y: ${y} }`}</b>
     </>
   );
 }

@@ -8,6 +8,7 @@ export { useInterval } from './useInterval';
 export { useMediaQuery } from './useMediaQuery';
 export { useWindowSize } from './useWindowSize';
 export { useLocalStorage } from './useLocalStorage';
+export { useMousePosition } from './useMousePosition';
 export { useNetworkStatus } from './useNetworkStatus';
 export { useOnClickOutside } from './useOnClickOutside';
 export { useRandomInterval } from './useRandomInterval';
