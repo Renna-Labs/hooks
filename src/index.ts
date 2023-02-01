@@ -5,6 +5,7 @@ export { useHover } from './useHover/useHover';
 export { useCounter } from './useCounter/useCounter';
 export { useTimeout } from './useTimeout/useTimeout';
 export { useInterval } from './useInterval/useInterval';
+export { useFullscreen } from './useFullscreen/useFullscreen';
 export { useMediaQuery } from './useMediaQuery/useMediaQuery';
 export { useWindowSize } from './useWindowSize/useWindowSize';
 export { useLocalStorage } from './useLocalStorage/useLocalStorage';

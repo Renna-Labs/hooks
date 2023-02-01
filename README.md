@@ -38,6 +38,7 @@ yarn add @rennalabs/hooks
   - [`useHover()`](#useHover)
   - [`useOs()`](#useOs)
   - [`useMousePosition()`](#useMousePosition)
+  - [`useFullscreen()`](#useFullscreen)
 
 ## Hooks
 
@@ -430,6 +431,51 @@ function Demo() {
   return (
     <>
       Mouse coordinates are <b>{`{ x: ${x}, y: ${y} }`}</b>
+    </>
+  );
+}
+```
+
+### `useFullscreen()`
+
+useFullscreen allows to enter/exit fullscreen for given element using the Fullscreen API. By default, if you don't provide ref, hook will target document.documentElement:
+
+#### Example
+
+```js
+import { useFullscreen } from '@rennalabs/hooks';
+
+function Demo() {
+  const { toggle, fullscreen } = useFullscreen();
+
+  return (
+    <button onClick={toggle} color={fullscreen ? 'red' : 'blue'}>
+      {fullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'}
+    </button>
+  );
+}
+```
+
+#### Example with custom element
+
+```js
+import { useFullscreen } from '@rennalabs/hooks';
+
+function Demo() {
+  const { ref, toggle, fullscreen } = useFullscreen();
+
+  return (
+    <>
+      <img
+        ref={ref}
+        src="https://unsplash.com/image.jpg"
+        alt="Unsplash Image to make Fullscreen"
+        width={200}
+      />
+
+      <button onClick={toggle} color={fullscreen ? 'red' : 'blue'}>
+        {fullscreen ? 'Exit Fullscreen' : 'View Image Fullscreen'}
+      </button>
     </>
   );
 }
