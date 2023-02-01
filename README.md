@@ -36,6 +36,7 @@ yarn add @rennalabs/hooks
   - [`useTimeout()`](#useTimeout)
   - [`useCounter()`](#useCounter)
   - [`useHover()`](#useHover)
+  - [`useOs()`](#useOs)
 
 ## Hooks
 
