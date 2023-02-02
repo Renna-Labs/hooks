@@ -56,6 +56,9 @@
   "homepage": "https://github.com/Renna-Labs/hooks#readme",
   "jest": {
     "testEnvironment": "jest-environment-jsdom",
+    "setupFilesAfterEnv": [
+      "./tests/setupTests.ts"
+    ],
     "testRegex": "(/__tests__/.*|(\\.|/)(test|spec))\\.(tsx?|ts)$",
     "moduleDirectories": [
       "./node_modules",

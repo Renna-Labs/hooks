@@ -1,5 +1,3 @@
-import React from 'react';
-import '@testing-library/jest-dom';
 import { render, cleanup } from '@testing-library/react';
 
 import { useWindowScrollPosition } from './useWindowScrollPosition';

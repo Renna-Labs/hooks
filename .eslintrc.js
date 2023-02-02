@@ -26,6 +26,8 @@ module.exports = {
     'no-console': 'off',
     'no-undef': 'off',
     'prefer-arrow-callback': 'off',
+    // react rules
+    'react/prop-types': 'off',
     // typescript rules
     '@typescript-eslint/no-explicit-any': 'off',
     '@typescript-eslint/ban-ts-comment': 'off',

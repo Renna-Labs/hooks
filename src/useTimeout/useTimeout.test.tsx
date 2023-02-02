@@ -1,4 +1,5 @@
 import { renderHook } from '@testing-library/react';
+
 import { useTimeout } from './useTimeout';
 
 const defaultTimeout = 2000;
