@@ -1,8 +1,6 @@
-import React from 'react';
-import '@testing-library/jest-dom';
 import { render, cleanup } from '@testing-library/react';
 
-import { useWindowScrollPosition } from '../src/useWindowScrollPosition';
+import { useWindowScrollPosition } from './useWindowScrollPosition';
 
 function App() {
   const { x, y } = useWindowScrollPosition();

@@ -3,7 +3,8 @@ export function throttle<T extends(...args: any[]) => void>(
   threshold = 250,
   scope?: any,
 ): T {
-  let last: number; let deferTimer: number;
+  let last: number;
+  let deferTimer: number;
   return function(this: any) {
     const context = scope || this;
 
@@ -49,3 +50,6 @@ export const isClient: boolean = typeof window === 'object';
 export function clamp(value: number, min: number, max: number) {
   return Math.min(Math.max(value, min), max);
 }
+
+// Utility helper for random number generation
+export const random = (min: number, max: number) => Math.floor(Math.random() * (max - min)) + min;

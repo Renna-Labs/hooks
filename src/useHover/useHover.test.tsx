@@ -1,8 +1,6 @@
-import React from 'react';
-import '@testing-library/jest-dom';
 import { fireEvent, render, screen } from '@testing-library/react';
 
-import { useHover } from '../src/useHover';
+import { useHover } from './useHover';
 
 const Target: React.FunctionComponent<any> = () => {
   const { ref, hovered } = useHover();

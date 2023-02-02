@@ -1,10 +1,11 @@
-import { useCallback, useEffect, useRef } from 'react';
-
-// Utility helper for random number generation
-const random = (min: number, max: number) => Math.floor(Math.random() * (max - min)) + min;
+import { useCallback, useEffect, useRef, useState } from 'react';
+import { random } from '../utils';
 
 interface UseRandomIntervalReturnType {
-  cancel: () => void;
+  start: () => void;
+  stop: () => void;
+  toggle: () => void;
+  active: boolean;
 }
 
 export const useRandomInterval = (
@@ -14,13 +15,15 @@ export const useRandomInterval = (
 ): UseRandomIntervalReturnType => {
   const timeoutId = useRef<number | null>(null);
   const savedCallback = useRef<() => void>(callback);
+  const [active, setIsActive] = useState(false);
 
   useEffect(() => {
     savedCallback.current = callback;
   });
 
-  useEffect(() => {
-    let isEnabled = typeof minDelay === 'number' && typeof maxDelay === 'number';
+  const start = useCallback(() => {
+    const isEnabled = typeof minDelay === 'number' && typeof maxDelay === 'number';
+
     if (isEnabled) {
       const handleTick = () => {
         const nextTickAt = random(minDelay, maxDelay);
@@ -30,14 +33,26 @@ export const useRandomInterval = (
         }, nextTickAt);
       };
       handleTick();
+      setIsActive(true);
     }
+  }, [minDelay, maxDelay]);
 
+  useEffect(() => {
     return () => window.clearTimeout(timeoutId.current!);
   }, [minDelay, maxDelay]);
 
-  const cancel = useCallback(() => {
+  const stop = useCallback(() => {
     window.clearTimeout(timeoutId.current!);
+    setIsActive(false);
   }, []);
 
-  return { cancel };
+  const toggle = useCallback(() => {
+    if (active) {
+      stop();
+    } else {
+      start();
+    }
+  }, [active, start, stop]);
+
+  return { start, stop, toggle, active };
 };

@@ -2,7 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/@rennalabs%2Fhooks.svg)](https://badge.fury.io/js/@rennalabs%2Fhooks)
 
-A library of useful hooks.
+A library of react hooks for state and UI management.
 
 ## Install
 
@@ -31,12 +31,14 @@ yarn add @rennalabs/hooks
   - [`useOnClickOutside()`](#useOnClickOutside)
   - [`useMediaQuery()`](#useMediaQuery)
   - [`usePrefersReducedMotion()`](#usePrefersReducedMotion)
-  - [`useRandomInterval()`](#useRandomInterval)
-  - [`useInterval()`](#useInterval)
   - [`useTimeout()`](#useTimeout)
+  - [`useInterval()`](#useInterval)
+  - [`useRandomInterval()`](#useRandomInterval)
   - [`useCounter()`](#useCounter)
   - [`useHover()`](#useHover)
   - [`useOs()`](#useOs)
+  - [`useMousePosition()`](#useMousePosition)
+  - [`useFullscreen()`](#useFullscreen)
 
 ## Hooks
 
@@ -61,7 +63,11 @@ import { useNetworkStatus } from '@rennalabs/hooks';
 const Example = () => {
   const { isOnline, offlineAt } = useNetworkStatus();
 
-  // ...
+  return (
+    <div style={{ background: isOnline ? 'green' : 'red' }}>
+      {`App went offline at ${offlineAt.toString()}`}
+    </div>
+  );
 };
 ```
 
@@ -82,7 +88,7 @@ import { useWindowScrollPosition } from '@rennalabs/hooks';
 const Example = () => {
   const { x, y } = useWindowScrollPosition();
 
-  // ...
+  return <div>{`Scroll position is { x: ${x}, y: ${y} }`}</div>;
 };
 ```
 
@@ -103,7 +109,7 @@ import { useWindowSize } from '@rennalabs/hooks';
 const Example = () => {
   const { width, height } = useWindowSize();
 
-  // ...
+  return <div>{`window size is ${width}x${height}`}</div>;
 };
 ```
 
@@ -131,7 +137,12 @@ const Example = () => {
   // to the value in local storage.
   const [name, setName] = useLocalStorage('name', 'Bob');
 
-  // ...
+  return (
+    <div>
+      <h1>{`Saved name: ${name}`}</h1>
+      <input onChange={e => setName(e.target.value)} />
+    </div>
+  );
 };
 ```
 
@@ -139,24 +150,81 @@ const Example = () => {
 
 #### Arguments
 
-- `ref: useRef`: A ref to an element created with useRef
-- `func: function`: a function to be fired within an effect when a click outside the ref is detected
+- `handler: function`: function that will be called on outside click.
+- `events?: string[]`: optional list of events that indicate outside click.
+- `nodes?: HTMLElement[]`: optional list of nodes that should not trigger outside click event.
+
+Hook returns React ref object that should be passed to element on which outside clicks should be captured.
 
 #### Example
 
 ```js
+import { useState } from 'react';
 import { useOnClickOutside } from '@rennalabs/hooks';
 
-const Example = () => {
-  // Create a ref that we add to the element for which we want to detect outside clicks
-  const ref = useRef();
-  // State for our modal
-  const [isModalOpen, setModalOpen] = useState(false);
-  // Call hook passing in the ref and a function to call on outside click
-  useOnClickOutside(ref, () => setModalOpen(false));
+function Demo() {
+  const [opened, setOpened] = useState(false);
+  const ref = useOnClickOutside(() => setOpened(false));
 
-  // ...
-};
+  return (
+    <>
+      <button onClick={() => setOpened(true)}>Open dropdown</button>
+
+      {opened && (
+        <DropDown ref={ref}>
+          <span>Click outside to close</span>
+        </DropDown>
+      )}
+    </>
+  );
+}
+```
+
+#### Example with Events
+
+```js
+import { useState } from 'react';
+import { useOnClickOutside } from '@rennalabs/hooks';
+
+function Demo() {
+  const [opened, setOpened] = useState(false);
+  const ref = useClickOutside(() => setOpened(false), ['mouseup', 'touchend']);
+
+  return (
+    <>
+      <button onClick={() => setOpened(true)}>Open dropdown</button>
+
+      {opened && (
+        <DropDown ref={ref}>
+          <span>Click outside to close</span>
+        </DropDown>
+      )}
+    </>
+  );
+}
+```
+
+#### Example with nodes
+
+```js
+import { useState } from 'react';
+import { useOnClickOutside } from '@rennalabs/hooks';
+
+function Demo() {
+  const [dropdown, setDropdown] = useState(null);
+  const [control, setControl] = useState(null);
+
+  useClickOutside(() => console.log('clicked outside'), null, [control, dropdown]);
+
+  return (
+    <div>
+      <div ref={setControl}>Control</div>
+      <div>
+        <div ref={setDropdown}>Dropdown</div>
+      </div>
+    </div>
+  );
+}
 ```
 
 ### `useMediaQuery()`
@@ -205,69 +273,6 @@ const Example = ({ isBig }) => {
 };
 ```
 
-### `useRandomInterval()`
-
-A hook itended for animations and microinteractions that fire on a spontaneous interval. [More info here...](https://joshwcomeau.com/snippets/react-hooks/use-random-interval)
-
-#### Arguments
-
-- `callback: function`
-- `minDelay?: number`
-- `maxDelay?: number`
-
-#### Example
-
-```js
-import { useRandomInterval } from '@rennalabs/hooks';
-
-function LaggyClock() {
-  // Update between every 1 and 4 seconds
-  const delay = [1000, 4000];
-
-  const [currentTime, setCurrentTime] = React.useState(Date.now);
-
-  useRandomInterval(() => setCurrentTime(Date.now()), ...delay);
-
-  return <>It is currently {new Date(currentTime).toString()}.</>;
-}
-```
-
-### `useInterval()`
-
-A hook based on [Dan Abramov's blog post](https://overreacted.io/making-setinterval-declarative-with-react-hooks/) about `setInterval`.
-
-#### Arguments
-
-- `callback: function`
-- `delay: number`
-
-#### Example
-
-```js
-import { useInterval } from '@rennalabs/hooks';
-
-function Example() {
-  let [count, setCount] = useState(0);
-  let [delay, setDelay] = useState(1000);
-
-  useInterval(() => {
-    // Your custom logic here
-    setCount(count + 1);
-  }, delay);
-
-  function handleDelayChange(e) {
-    setDelay(Number(e.target.value));
-  }
-
-  return (
-    <Demo>
-      {count}
-      <input value={delay} onChange={handleDelayChange} />
-    </Demo>
-  );
-}
-```
-
 ### `useTimeout()`
 
 A declarative adaptation of `setTimeout` based on [Dan Abramov's blog post](https://overreacted.io/making-setinterval-declarative-with-react-hooks/) about `setInterval`
@@ -288,6 +293,82 @@ function Example() {
   useTimeout(() => setMessage('changed!'), 2000);
 
   return <Demo>{message}</Demo>;
+}
+```
+
+### `useInterval()`
+
+A hook wrapper around window.setInterval
+
+#### Arguments
+
+- `callback: function`
+- `delay: number`
+
+#### Example
+
+```js
+import { useState, useEffect } from 'react';
+import { useInterval } from '@rennalabs/hooks';
+
+function Demo() {
+  const [seconds, setSeconds] = useState(0);
+  const interval = useInterval(() => setSeconds(s => s + 1), 1000);
+
+  useEffect(() => {
+    interval.start();
+    return interval.stop;
+  }, []);
+
+  return (
+    <div>
+      <h1>
+        Page loaded <b>{seconds}</b> seconds ago
+      </h1>
+      <button onClick={interval.toggle} style={{ color: interval.active ? 'red' : 'green' }}>
+        {interval.active ? 'Stop' : 'Start'} counting
+      </button>
+    </div>
+  );
+}
+```
+
+### `useRandomInterval()`
+
+A hook itended for animations and microinteractions that fire on a spontaneous interval.
+
+#### Arguments
+
+- `callback: function`
+- `minDelay?: number`
+- `maxDelay?: number`
+
+#### Example
+
+```js
+import { useState, useEffect } from 'react';
+import { useRandomInterval } from '@rennalabs/hooks';
+
+function LaggyTimer() {
+  // Update between every 1 and 4 seconds
+  const delay = [1000, 4000];
+  const [seconds, setSeconds] = useState(0);
+
+  const interval = useRandomInterval(() => setSeconds(s => s + 1), ...delay);
+
+  useEffect(() => {
+    interval.start();
+    return interval.stop;
+  }, []);
+
+  return (
+    <div>
+      <h1>It has been {seconds} seconds.</h1>
+      <button onClick={interval.toggle} style={{ color: interval.active ? 'red' : 'green' }}>
+        {interval.active ? 'Stop' : 'Start'} counting
+      </button>
+    </div>
+  );
 }
 ```
 
@@ -340,7 +421,7 @@ function Demo() {
 
 ### `useOs()`
 
-useOs detects user's os. Possible values are: undetermined, macos, ios, windows, android, linux. If os cannot be identified, for example, during server side rendering undetermined will be returned.
+useOs detects user's operating system. Possible values are: undetermined, macos, ios, windows, android, linux. If os cannot be identified, for example, during server side rendering undetermined will be returned.
 
 #### Example
 
@@ -352,6 +433,71 @@ function Demo() {
   return (
     <>
       Your operating system is <b>{os}</b>
+    </>
+  );
+}
+```
+
+### `useMousePosition()`
+
+Get mouse position relative to viewport or given element.
+
+#### Example
+
+```js
+import { useMousePosition } from '@rennalabs/hooks';
+
+function Demo() {
+  const { ref, x, y } = useMousePosition();
+
+  return (
+    <>
+      Mouse coordinates are <b>{`{ x: ${x}, y: ${y} }`}</b>
+    </>
+  );
+}
+```
+
+### `useFullscreen()`
+
+useFullscreen allows to enter/exit fullscreen for given element using the Fullscreen API. By default, if you don't provide ref, hook will target document.documentElement:
+
+#### Example
+
+```js
+import { useFullscreen } from '@rennalabs/hooks';
+
+function Demo() {
+  const { toggle, fullscreen } = useFullscreen();
+
+  return (
+    <button onClick={toggle} style={{ color: fullscreen ? 'red' : 'green' }}>
+      {fullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'}
+    </button>
+  );
+}
+```
+
+#### Example with custom element
+
+```js
+import { useFullscreen } from '@rennalabs/hooks';
+
+function Demo() {
+  const { ref, toggle, fullscreen } = useFullscreen();
+
+  return (
+    <>
+      <img
+        ref={ref}
+        src="https://unsplash.com/image.jpg"
+        alt="Unsplash Image to make Fullscreen"
+        width={200}
+      />
+
+      <button onClick={toggle} style={{ color: fullscreen ? 'red' : 'green' }}>
+        {fullscreen ? 'Exit Fullscreen' : 'View Image Fullscreen'}
+      </button>
     </>
   );
 }
