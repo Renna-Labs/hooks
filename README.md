@@ -31,9 +31,9 @@ yarn add @rennalabs/hooks
   - [`useOnClickOutside()`](#useOnClickOutside)
   - [`useMediaQuery()`](#useMediaQuery)
   - [`usePrefersReducedMotion()`](#usePrefersReducedMotion)
-  - [`useRandomInterval()`](#useRandomInterval)
-  - [`useInterval()`](#useInterval)
   - [`useTimeout()`](#useTimeout)
+  - [`useInterval()`](#useInterval)
+  - [`useRandomInterval()`](#useRandomInterval)
   - [`useCounter()`](#useCounter)
   - [`useHover()`](#useHover)
   - [`useOs()`](#useOs)
@@ -273,69 +273,6 @@ const Example = ({ isBig }) => {
 };
 ```
 
-### `useRandomInterval()`
-
-A hook itended for animations and microinteractions that fire on a spontaneous interval. [More info here...](https://joshwcomeau.com/snippets/react-hooks/use-random-interval)
-
-#### Arguments
-
-- `callback: function`
-- `minDelay?: number`
-- `maxDelay?: number`
-
-#### Example
-
-```js
-import { useRandomInterval } from '@rennalabs/hooks';
-
-function LaggyClock() {
-  // Update between every 1 and 4 seconds
-  const delay = [1000, 4000];
-
-  const [currentTime, setCurrentTime] = React.useState(Date.now);
-
-  useRandomInterval(() => setCurrentTime(Date.now()), ...delay);
-
-  return <>It is currently {new Date(currentTime).toString()}.</>;
-}
-```
-
-### `useInterval()`
-
-A hook based on [Dan Abramov's blog post](https://overreacted.io/making-setinterval-declarative-with-react-hooks/) about `setInterval`.
-
-#### Arguments
-
-- `callback: function`
-- `delay: number`
-
-#### Example
-
-```js
-import { useInterval } from '@rennalabs/hooks';
-
-function Example() {
-  let [count, setCount] = useState(0);
-  let [delay, setDelay] = useState(1000);
-
-  useInterval(() => {
-    // Your custom logic here
-    setCount(count + 1);
-  }, delay);
-
-  function handleDelayChange(e) {
-    setDelay(Number(e.target.value));
-  }
-
-  return (
-    <Demo>
-      {count}
-      <input value={delay} onChange={handleDelayChange} />
-    </Demo>
-  );
-}
-```
-
 ### `useTimeout()`
 
 A declarative adaptation of `setTimeout` based on [Dan Abramov's blog post](https://overreacted.io/making-setinterval-declarative-with-react-hooks/) about `setInterval`
@@ -356,6 +293,82 @@ function Example() {
   useTimeout(() => setMessage('changed!'), 2000);
 
   return <Demo>{message}</Demo>;
+}
+```
+
+### `useInterval()`
+
+A hook wrapper around window.setInterval
+
+#### Arguments
+
+- `callback: function`
+- `delay: number`
+
+#### Example
+
+```js
+import { useState, useEffect } from 'react';
+import { useInterval } from '@rennalabs/hooks';
+
+function Demo() {
+  const [seconds, setSeconds] = useState(0);
+  const interval = useInterval(() => setSeconds(s => s + 1), 1000);
+
+  useEffect(() => {
+    interval.start();
+    return interval.stop;
+  }, []);
+
+  return (
+    <div>
+      <h1>
+        Page loaded <b>{seconds}</b> seconds ago
+      </h1>
+      <button onClick={interval.toggle} color={interval.active ? 'red' : 'green'} variant="outline">
+        {interval.active ? 'Stop' : 'Start'} counting
+      </button>
+    </div>
+  );
+}
+```
+
+### `useRandomInterval()`
+
+A hook itended for animations and microinteractions that fire on a spontaneous interval.
+
+#### Arguments
+
+- `callback: function`
+- `minDelay?: number`
+- `maxDelay?: number`
+
+#### Example
+
+```js
+import { useState, useEffect } from 'react';
+import { useRandomInterval } from '@rennalabs/hooks';
+
+function LaggyTimer() {
+  // Update between every 1 and 4 seconds
+  const delay = [1000, 4000];
+  const [seconds, setSeconds] = useState(0);
+
+  const interval = useRandomInterval(() => setSeconds(s => s + 1), ...delay);
+
+  useEffect(() => {
+    interval.start();
+    return interval.stop;
+  }, []);
+
+  return (
+    <div>
+      <h1>It has been {seconds} seconds.</h1>
+      <button onClick={interval.toggle} color={interval.active ? 'red' : 'green'} variant="outline">
+        {interval.active ? 'Stop' : 'Start'} counting
+      </button>
+    </div>
+  );
 }
 ```
 
