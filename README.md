@@ -325,7 +325,7 @@ function Demo() {
       <h1>
         Page loaded <b>{seconds}</b> seconds ago
       </h1>
-      <button onClick={interval.toggle} color={interval.active ? 'red' : 'green'} variant="outline">
+      <button onClick={interval.toggle} style={{ color: interval.active ? 'red' : 'green' }}>
         {interval.active ? 'Stop' : 'Start'} counting
       </button>
     </div>
@@ -364,7 +364,7 @@ function LaggyTimer() {
   return (
     <div>
       <h1>It has been {seconds} seconds.</h1>
-      <button onClick={interval.toggle} color={interval.active ? 'red' : 'green'} variant="outline">
+      <button onClick={interval.toggle} style={{ color: interval.active ? 'red' : 'green' }}>
         {interval.active ? 'Stop' : 'Start'} counting
       </button>
     </div>
@@ -471,7 +471,7 @@ function Demo() {
   const { toggle, fullscreen } = useFullscreen();
 
   return (
-    <button onClick={toggle} color={fullscreen ? 'red' : 'blue'}>
+    <button onClick={toggle} style={{ color: fullscreen ? 'red' : 'green' }}>
       {fullscreen ? 'Exit Fullscreen' : 'Enter Fullscreen'}
     </button>
   );
@@ -495,7 +495,7 @@ function Demo() {
         width={200}
       />
 
-      <button onClick={toggle} color={fullscreen ? 'red' : 'blue'}>
+      <button onClick={toggle} style={{ color: fullscreen ? 'red' : 'green' }}>
         {fullscreen ? 'Exit Fullscreen' : 'View Image Fullscreen'}
       </button>
     </>
