@@ -2,7 +2,7 @@
 
 [![npm version](https://badge.fury.io/js/@rennalabs%2Fhooks.svg)](https://badge.fury.io/js/@rennalabs%2Fhooks)
 
-A library of useful hooks.
+A library of react hooks for state and UI management.
 
 ## Install
 
@@ -63,7 +63,11 @@ import { useNetworkStatus } from '@rennalabs/hooks';
 const Example = () => {
   const { isOnline, offlineAt } = useNetworkStatus();
 
-  // ...
+  return (
+    <div style={{ background: isOnline ? 'green' : 'red' }}>
+      {`App went offline at ${offlineAt.toString()}`}
+    </div>
+  );
 };
 ```
 
@@ -84,7 +88,7 @@ import { useWindowScrollPosition } from '@rennalabs/hooks';
 const Example = () => {
   const { x, y } = useWindowScrollPosition();
 
-  // ...
+  return <div>{`Scroll position is { x: ${x}, y: ${y} }`}</div>;
 };
 ```
 
@@ -105,7 +109,7 @@ import { useWindowSize } from '@rennalabs/hooks';
 const Example = () => {
   const { width, height } = useWindowSize();
 
-  // ...
+  return <div>{`window size is ${width}x${height}`}</div>;
 };
 ```
 
@@ -133,7 +137,12 @@ const Example = () => {
   // to the value in local storage.
   const [name, setName] = useLocalStorage('name', 'Bob');
 
-  // ...
+  return (
+    <div>
+      <h1>{`Saved name: ${name}`}</h1>
+      <input onChange={e => setName(e.target.value)} />
+    </div>
+  );
 };
 ```
 
