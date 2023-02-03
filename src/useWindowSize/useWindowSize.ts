@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { throttle } from '../utils';
 
 const events = new Set<() => void>();
