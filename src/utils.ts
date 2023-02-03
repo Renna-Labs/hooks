@@ -1,11 +1,11 @@
-export function throttle<T extends(...args: any[]) => void>(
+export function throttle<T extends (...args: any[]) => void>(
   func: T,
   threshold = 250,
   scope?: any,
 ): T {
   let last: number;
   let deferTimer: number;
-  return function(this: any) {
+  return function (this: any) {
     const context = scope || this;
 
     const now = Date.now();
@@ -14,7 +14,7 @@ export function throttle<T extends(...args: any[]) => void>(
       // hold on to it
       clearTimeout(deferTimer);
       // @ts-ignore
-      deferTimer = setTimeout(function() {
+      deferTimer = setTimeout(() => {
         last = now;
         // @ts-ignore
         func.apply(context, args);
@@ -40,9 +40,9 @@ export const isClient: boolean = typeof window === 'object';
 /**
  * Clamps a given value within a specified range.
  */
-export function clamp(value: number, min: number, max: number) {
+export const clamp = (value: number, min: number, max: number) => {
   return Math.min(Math.max(value, min), max);
-}
+};
 
 // Utility helper for random number generation
 export const random = (min: number, max: number) => Math.floor(Math.random() * (max - min)) + min;

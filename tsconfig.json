@@ -5,6 +5,6 @@
     "outDir": "./types",
     "emitDeclarationOnly": true
   },
-  "include": ["**/*.ts", "**/*.tsx"],
+  "include": ["**/*.ts", "**/*.tsx", ".eslintrc.js"],
   "exclude": ["node_modules"]
 }

@@ -23,18 +23,18 @@ export function useResizeObserver<T extends HTMLElement = any>() {
     () =>
       typeof window !== 'undefined'
         ? new ResizeObserver((entries: any) => {
-          const entry = entries[0];
+            const entry = entries[0];
 
-          if (entry) {
-            cancelAnimationFrame(frameID.current);
+            if (entry) {
+              cancelAnimationFrame(frameID.current);
 
-            frameID.current = requestAnimationFrame(() => {
-              if (ref.current) {
-                setRect(entry.contentRect);
-              }
-            });
-          }
-        })
+              frameID.current = requestAnimationFrame(() => {
+                if (ref.current) {
+                  setRect(entry.contentRect);
+                }
+              });
+            }
+          })
         : null,
     [],
   );
@@ -45,7 +45,9 @@ export function useResizeObserver<T extends HTMLElement = any>() {
     }
 
     return () => {
-      if (observer) {observer.disconnect();}
+      if (observer) {
+        observer.disconnect();
+      }
 
       if (frameID.current) {
         cancelAnimationFrame(frameID.current);
