@@ -39,7 +39,7 @@ yarn add @rennalabs/hooks
   - [`useOs()`](#useOs)
   - [`useMousePosition()`](#useMousePosition)
   - [`useFullscreen()`](#useFullscreen)
-  - [`uesIdle()`](#uesIdle)
+  - [`useIdle()`](#useIdle)
 
 ## Hooks
 
