@@ -21,6 +21,7 @@ export const useWindowSize = (options: { throttleMs?: number } = {}) => {
   useEffect(() => {
     if (events.size === 0) {
       window.addEventListener('resize', onResize, true);
+      window.addEventListener('orientationchange', onResize, true);
     }
 
     // @ts-ignore
@@ -32,6 +33,7 @@ export const useWindowSize = (options: { throttleMs?: number } = {}) => {
 
       if (events.size === 0) {
         window.removeEventListener('resize', onResize, true);
+        window.removeEventListener('orientationchange', onResize, true);
       }
     };
   }, []);
