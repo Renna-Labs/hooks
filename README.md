@@ -39,6 +39,7 @@ yarn add @rennalabs/hooks
   - [`useOs()`](#useOs)
   - [`useMousePosition()`](#useMousePosition)
   - [`useFullscreen()`](#useFullscreen)
+  - [`useIdle()`](#useIdle)
 
 ## Hooks
 
@@ -500,6 +501,22 @@ function Demo() {
       </button>
     </>
   );
+}
+```
+
+### `useIdle()`
+
+Detects if user does nothing for given time in ms:
+
+#### Example
+
+```js
+import { useIdle } from '@rennalabs/hooks';
+
+function Demo() {
+  const idle = useIdle(2000);
+
+  return <div>Current state: {idle ? 'idle' : 'not idle'}</div>;
 }
 ```
 

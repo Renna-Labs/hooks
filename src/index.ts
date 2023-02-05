@@ -1,6 +1,7 @@
 export * from './utils';
 
 export { useOs } from './useOs/useOs';
+export { useIdle } from './useIdle/useIdle';
 export { useHover } from './useHover/useHover';
 export { useCounter } from './useCounter/useCounter';
 export { useTimeout } from './useTimeout/useTimeout';
