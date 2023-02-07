@@ -13,7 +13,8 @@
   "scripts": {
     "build:cjs": "tsc --outDir ./cjs --module commonjs --project tsconfig.build.json",
     "build:esm": "tsc --outDir ./esm --module esnext --target esnext --project tsconfig.build.json",
-    "build": "yarn clean && yarn build:cjs && yarn build:esm && tsc --project tsconfig.build.json --declaration --emitDeclarationOnly",
+    "build:types": "tsc --project tsconfig.build.json --declaration --emitDeclarationOnly",
+    "build": "yarn clean && yarn build:cjs && yarn build:esm && yarn build:types",
     "clean": "rimraf lib esm cjs",
     "format": "prettier --write \"src/*.{js,ts,tsx,json,md}\"",
     "lint": "eslint \"src/**/*.{js,ts,tsx}\" --quiet",
