@@ -12,6 +12,7 @@ export { useMediaQuery } from './useMediaQuery/useMediaQuery';
 export { useWindowSize } from './useWindowSize/useWindowSize';
 export { useGeolocation } from './useGeolocation/useGeolocation';
 export { useElementSize } from './useElementSize/useElementSize';
+export { useWindowEvent } from './useWindowEvent/useWindowEvent';
 export { useLocalStorage } from './useLocalStorage/useLocalStorage';
 export { useResizeObserver } from './useElementSize/useElementSize';
 export { useDocumentTitle } from './useDocumentTitle/useDocumentTitle';

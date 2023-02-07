@@ -45,6 +45,7 @@ yarn add @rennalabs/hooks
   - [`useDocumentVisibility()`](#useDocumentVisibility)
   - [`useGeolocation()`](#useGeolocation)
   - [`useIsomorphicEffect()`](#useIsomorphicEffect)
+  - [`useWindowEvent()`](#useWindowEvent)
 
 ## Hooks
 
@@ -121,17 +122,20 @@ const Example = () => {
 
 ### `useLocalStorage()`
 
+Allows you to use value from localStorage as react state. Hook works the same way as useState, but also writes the value to localStorage. Subscribes to the `storage` event. When state changes in one tab, it automatically updates value in all other opened browser tabs.
+
 #### Arguments
 
 - `key: string`: Key to the value in local storage
-- `value: string`: value to the key in local storage
+- `defaultValue: string`: Default value for the provided key
 
 #### Returns
 
 Array containing:
 
-- [name]: Value to the key in local storage
-- [setName]: Setter function to the provided key
+- [value]: Value to the key in localStorage.
+- [setValue]: Setter function to the provided key
+- [removeValue]: Callback to remove key/value from localStorage
 
 #### Example
 
@@ -141,12 +145,13 @@ import { useLocalStorage } from '@rennalabs/hooks';
 const Example = () => {
   // Similar to useState but first arg is key
   // to the value in local storage.
-  const [name, setName] = useLocalStorage('name', 'Bob');
+  const [value, setValue, removeValue] = useLocalStorage('keyName', 'keyValue');
 
   return (
     <div>
-      <h1>{`Saved name: ${name}`}</h1>
-      <input onChange={e => setName(e.target.value)} />
+      <h1>{`Saved value: ${value}`}</h1>
+      <input onChange={e => setValue(e.target.value)} />
+      <button onClick={removeValue}>Clear Storage</button>
     </div>
   );
 };
@@ -626,6 +631,28 @@ function Demo() {
 
   return null;
 }
+```
+
+### `useWindowEvent()`
+
+Adds an event listener to `window` object on component mount and removes it on unmount:
+
+#### Example
+
+```js
+import { useEffect } from 'react';
+import { useWindowEvent } from '@rennalabs/hooks';
+
+const handler = event => console.log(event);
+
+// regular way
+useEffect(() => {
+  window.addEventListener('keydown', handler);
+  return () => window.removeEventListener('keydown', handler);
+}, []);
+
+// with use-window-event hook
+useWindowEvent('keydown', handler);
 ```
 
 ---
