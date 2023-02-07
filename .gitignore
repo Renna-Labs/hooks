@@ -2,6 +2,11 @@ yarn-error.log
 node_modules
 temp
 dist
+lib
+coverage
+esm
+cjs
+buildcache
 types
 *.log
 example/.cache

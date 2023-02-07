@@ -1,10 +1,10 @@
 {
   "extends": "@rennalabs/tsconfig/tsconfig.json",
   "compilerOptions": {
-    "declaration": true,
-    "outDir": "./types",
-    "emitDeclarationOnly": true
+    "rootDir": ".",
+    "outDir": "./lib",
+    "tsBuildInfoFile": "./buildcache/build"
   },
-  "include": ["**/*.ts", "**/*.tsx", ".eslintrc.js"],
-  "exclude": ["node_modules"]
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["node_modules", "buildcache"]
 }
