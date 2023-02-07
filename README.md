@@ -40,6 +40,11 @@ yarn add @rennalabs/hooks
   - [`useMousePosition()`](#useMousePosition)
   - [`useFullscreen()`](#useFullscreen)
   - [`useIdle()`](#useIdle)
+  - [`useCookie()`](#useCookie)
+  - [`useDocumentTitle()`](#useDocumentTitle)
+  - [`useDocumentVisibility()`](#useDocumentVisibility)
+  - [`useGeolocation()`](#useGeolocation)
+  - [`useIsomorphicEffect()`](#useIsomorphicEffect)
 
 ## Hooks
 
@@ -517,6 +522,109 @@ function Demo() {
   const idle = useIdle(2000);
 
   return <div>Current state: {idle ? 'idle' : 'not idle'}</div>;
+}
+```
+
+### `useCookie()`
+
+Returns the current value of a cookie, a callback to update the cookie and a callback to delete the cookie.
+
+#### Example
+
+```js
+import { useCookie } from '@rennalabs/hooks';
+
+function Demo() {
+  const [value, updateCookie, deleteCookie] = useCookie('my-cookie');
+
+  const updateCookieHandler = () => {
+    updateCookie('new-cookie-value');
+  };
+
+  return (
+    <div>
+      <p>Value: {value}</p>
+      <button onClick={updateCookieHandler}>Update Cookie</button>
+
+      <button onClick={deleteCookie}>Delete Cookie</button>
+    </div>
+  );
+}
+```
+
+### `useDocumentTitle()`
+
+Sets document.title property with React's useLayoutEffect hook. Hook is not called during server side rendering. Use this hook with client only applications. Call hook with string that should be set as document title inside any component. Hook is triggered every time value changes and value is not empty string (trailing whitespace is trimmed) or null.
+
+#### Example
+
+```js
+import { useState } from 'react';
+import { useDocumentTitle } from '@rennalabs/hooks';
+
+function Demo() {
+  const [title, setTitle] = useState('');
+  useDocumentTitle(title);
+
+  return <button onClick={() => setTitle('new title')}>Set document title</button>;
+}
+```
+
+### `useDocumentVisibility()`
+
+Returns current document.visibilityState – it allows to detect if current tab is active.
+
+#### Example
+
+```js
+import { useDocumentTitle, useDocumentVisibility } from '@rennalabs/hooks';
+
+function Demo() {
+  const documentState = useDocumentVisibility();
+  useDocumentTitle(`Document is ${documentState}`);
+
+  return <div>Switch to another tab to see document title change</div>;
+}
+```
+
+### `useGeolocation()`
+
+Returns user's geographic location. This hook accepts [position options](https://developer.mozilla.org/docs/Web/API/PositionOptions).
+
+#### Example
+
+```js
+import { useGeolocation } from '@rennalabs/hooks';
+
+function Demo() {
+  const { loading, error, latitude, longitude } = useGeolocation();
+
+  if (loading) return 'loading...';
+  if (error) return 'error';
+
+  return (
+    <div>
+      Your location is {latitude} x {longitude}
+    </div>
+  );
+}
+```
+
+### `useIsomorphicEffect()`
+
+Allows you to switch between useEffect during server side rendering and useLayoutEffect after hydration. Use it wherever you would use useLayoutEffect to avoid warnings during ssr.
+
+#### Example
+
+```js
+import { useIsomorphicEffect } from '@rennalabs/hooks';
+
+function Demo() {
+  useIsomorphicEffect(() => {
+    document.title = 'title';
+  });
+
+  return null;
 }
 ```
 

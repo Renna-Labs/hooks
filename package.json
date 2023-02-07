@@ -2,16 +2,19 @@
   "name": "@rennalabs/hooks",
   "version": "1.1.5",
   "description": "A library of useful hooks.",
-  "main": "dist/index.js",
-  "typings": "types/index.d.ts",
+  "main": "cjs/index.js",
+  "module": "esm/index.js",
+  "types": "lib/index.d.ts",
   "files": [
-    "dist",
-    "types"
+    "cjs",
+    "esm",
+    "lib"
   ],
   "scripts": {
-    "start": "NODE_ENV=development babel -w ./src --out-dir ./dist --ignore \"src/**/*.test.ts\",\"src/**/*.test.tsx\" --extensions \".ts,.tsx\"",
-    "build": "NODE_ENV=production npm run clean && babel ./src --out-dir ./dist --ignore \"src/**/*.test.ts\",\"src/**/*.test.tsx\" --extensions \".ts,.tsx\" && tsc",
-    "clean": "rimraf types dist",
+    "build:cjs": "tsc --outDir ./cjs --module commonjs --project tsconfig.build.json",
+    "build:esm": "tsc --outDir ./esm --module esnext --target esnext --project tsconfig.build.json",
+    "build": "yarn clean && yarn build:cjs && yarn build:esm && tsc --project tsconfig.build.json --declaration --emitDeclarationOnly",
+    "clean": "rimraf lib esm cjs",
     "format": "prettier --write \"src/*.{js,ts,tsx,json,md}\"",
     "lint": "eslint \"src/**/*.{js,ts,tsx}\" --quiet",
     "test": "jest",
@@ -89,6 +92,7 @@
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
     "@types/jest": "^29.4.0",
+    "@types/js-cookie": "^3.0.2",
     "@types/react": "^18.0.27",
     "@typescript-eslint/eslint-plugin": "^5.30.0",
     "@typescript-eslint/parser": "^5.30.0",
@@ -110,5 +114,8 @@
     "rimraf": "^4.1.2",
     "ts-jest": "^29.0.5",
     "typescript": "^4.x.x"
+  },
+  "dependencies": {
+    "js-cookie": "^3.0.1"
   }
 }

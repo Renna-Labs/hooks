@@ -8,3 +8,5 @@ node_modules
 tests
 .circleci
 tsconfig.json
+tsconfig.tsbuildinfo
+buildcache
