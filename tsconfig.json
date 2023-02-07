@@ -3,7 +3,8 @@
   "compilerOptions": {
     "rootDir": ".",
     "outDir": "./lib",
-    "tsBuildInfoFile": "./buildcache/build"
+    "tsBuildInfoFile": "./buildcache/build",
+    "removeComments": true
   },
   "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules", "buildcache"]
