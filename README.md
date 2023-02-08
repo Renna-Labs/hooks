@@ -8,13 +8,13 @@ A library of react hooks for state and UI management.
 
 > Note: React 16.8+ is required for Hooks.
 
-### With npm
+#### With npm
 
 ```sh
 npm i @rennalabs/hooks --save
 ```
 
-### Or with yarn
+#### Or with yarn
 
 ```sh
 yarn add @rennalabs/hooks
@@ -51,6 +51,8 @@ yarn add @rennalabs/hooks
 
 ### `useNetworkStatus()`
 
+[View source code](https://github.com/Renna-Labs/hooks/blob/master/src/useNetworkStatus/useNetworkStatus.ts)
+
 Retrieve network status from the browser.
 
 #### Returns
@@ -80,6 +82,8 @@ const Example = () => {
 
 ### `useWindowScrollPosition()`
 
+[View source code](https://github.com/Renna-Labs/hooks/blob/master/src/useWindowScrollPosition/useWindowScrollPosition.ts)
+
 #### Returns
 
 Object containing:
@@ -100,6 +104,8 @@ const Example = () => {
 ```
 
 ### `useWindowSize()`
+
+[View source code](https://github.com/Renna-Labs/hooks/blob/master/src/useWindowSize/useWindowSize.ts)
 
 #### Returns
 
@@ -122,6 +128,8 @@ const Example = () => {
 
 ### `useLocalStorage()`
 
+[View source code](https://github.com/Renna-Labs/hooks/blob/master/src/useLocalStorage/useLocalStorage.ts)
+
 Allows you to use value from localStorage as react state. Hook works the same way as useState, but also writes the value to localStorage. Subscribes to the `storage` event. When state changes in one tab, it automatically updates value in all other opened browser tabs.
 
 #### Arguments
@@ -133,9 +141,9 @@ Allows you to use value from localStorage as react state. Hook works the same wa
 
 Array containing:
 
-- [value]: Value to the key in localStorage.
-- [setValue]: Setter function to the provided key
-- [removeValue]: Callback to remove key/value from localStorage
+- `value: string`: Value to the key in localStorage.
+- `setValue: function`: Setter function to the provided key
+- `removeValue: function`: Callback to remove key/value from localStorage
 
 #### Example
 
@@ -159,13 +167,19 @@ const Example = () => {
 
 ### `useOnClickOutside()`
 
+[View source code](https://github.com/Renna-Labs/hooks/blob/master/src/useOnClickOutside/useOnClickOutside.ts)
+
+Detects click and touch events outside of specified element and fires given callback function.
+
 #### Arguments
 
 - `handler: function`: function that will be called on outside click.
 - `events?: string[]`: optional list of events that indicate outside click.
 - `nodes?: HTMLElement[]`: optional list of nodes that should not trigger outside click event.
 
-Hook returns React ref object that should be passed to element on which outside clicks should be captured.
+#### Returns
+
+- `ref`: React ref object that should be passed to element on which outside clicks should be captured.
 
 #### Example
 
@@ -240,11 +254,17 @@ function Demo() {
 
 ### `useMediaQuery()`
 
+[View source code](https://github.com/Renna-Labs/hooks/blob/master/src/useMediaQuery/useMediaQuery.ts)
+
 Accepts a media query string then uses the [matchMedia](https://developer.mozilla.org/en-US/docs/Web/API/Window/matchMedia) API to determine if it matches with the current document.
 
 #### Arguments
 
-- `string: media query string`:
+- `mediaQuery: string`
+
+#### Returns
+
+- `match: boolean`
 
 #### Example
 
@@ -266,7 +286,13 @@ const Example = () => {
 
 ### `usePrefersReducedMotion()`
 
+[View source code](https://github.com/Renna-Labs/hooks/blob/master/src/usePrefersReducedMotion/usePrefersReducedMotion.ts)
+
 A hook to allow access to the CSS media query `prefers-reduced-motion`.
+
+#### Returns
+
+- `match: boolean`
 
 #### Example
 
@@ -285,6 +311,8 @@ const Example = ({ isBig }) => {
 ```
 
 ### `useTimeout()`
+
+[View source code](https://github.com/Renna-Labs/hooks/blob/master/src/useTimeout/useTimeout.ts)
 
 A declarative adaptation of `setTimeout` based on [Dan Abramov's blog post](https://overreacted.io/making-setinterval-declarative-with-react-hooks/) about `setInterval`
 
@@ -309,12 +337,23 @@ function Example() {
 
 ### `useInterval()`
 
+[View source code](https://github.com/Renna-Labs/hooks/blob/master/src/useInterval/useInterval.ts)
+
 A hook wrapper around window.setInterval
 
 #### Arguments
 
 - `callback: function`
 - `delay: number`
+
+#### Returns
+
+Object containing:
+
+- `start: function`
+- `stop: function`
+- `toggle: function`
+- `active: boolean`
 
 #### Example
 
@@ -346,6 +385,8 @@ function Demo() {
 
 ### `useRandomInterval()`
 
+[View source code](https://github.com/Renna-Labs/hooks/blob/master/src/useRandomInterval/useRandomInterval.ts)
+
 A hook itended for animations and microinteractions that fire on a spontaneous interval.
 
 #### Arguments
@@ -353,6 +394,10 @@ A hook itended for animations and microinteractions that fire on a spontaneous i
 - `callback: function`
 - `minDelay?: number`
 - `maxDelay?: number`
+
+#### Returns
+
+- `interval: number`: Randomized interval between given min and max delay.
 
 #### Example
 
@@ -385,12 +430,21 @@ function LaggyTimer() {
 
 ### `useCounter()`
 
+[View source code](https://github.com/Renna-Labs/hooks/blob/master/src/useCounter/useCounter.ts)
+
 Increment/decrement state within given boundaries.
 
 #### Arguments
 
 - `initialCount: number`
 - `clamp: { min: number; max: number; }`
+
+#### Returns
+
+Array containing
+
+- `count: number`
+- `handlers: object`: functions to increment, decrement, reset, and set counter.
 
 #### Example
 
@@ -416,7 +470,16 @@ function Demo() {
 
 ### `useHover()`
 
+[View source code](https://github.com/Renna-Labs/hooks/blob/master/src/useHover/useHover.ts)
+
 Detect if mouse is over given element.
+
+#### Returns
+
+Object containing
+
+- `hovered: boolean`: Element's hover state.
+- `ref: object`: React ref object to attach to element.
 
 #### Example
 
@@ -432,7 +495,13 @@ function Demo() {
 
 ### `useOs()`
 
+[View source code](https://github.com/Renna-Labs/hooks/blob/master/src/useOs/useOs.ts)
+
 useOs detects user's operating system. Possible values are: undetermined, macos, ios, windows, android, linux. If os cannot be identified, for example, during server side rendering undetermined will be returned.
+
+#### Returns
+
+`os: undetermined | macos | ios | windows | android | linux`
 
 #### Example
 
@@ -451,7 +520,17 @@ function Demo() {
 
 ### `useMousePosition()`
 
+[View source code](https://github.com/Renna-Labs/hooks/blob/master/src/useMousePosition/useMousePosition.ts)
+
 Get mouse position relative to viewport or given element.
+
+#### Returns
+
+Object containing
+
+- `ref: object`: React ref object to attach to element.
+- `x: number`: X coordinate of element.
+- `y: number`: Y coordinate of element.
 
 #### Example
 
@@ -471,7 +550,17 @@ function Demo() {
 
 ### `useFullscreen()`
 
+[View source code](https://github.com/Renna-Labs/hooks/blob/master/src/useFullscreen/useFullscreen.ts)
+
 useFullscreen allows to enter/exit fullscreen for given element using the Fullscreen API. By default, if you don't provide ref, hook will target document.documentElement:
+
+#### Returns
+
+Object containing:
+
+- `toggle: function`: Function to toggle fullscreen.
+- `fullscreen: boolean`: Fullscreen status.
+- `ref: object`: React ref object to attach to custom element to make fullscreen.
 
 #### Example
 
@@ -516,7 +605,17 @@ function Demo() {
 
 ### `useIdle()`
 
+[View source code](https://github.com/Renna-Labs/hooks/blob/master/src/useIdle/useIdle.ts)
+
 Detects if user does nothing for given time in ms:
+
+#### Arguments
+
+- `idleCount: number`: number of ms to determine if user is idle.
+
+#### Returns
+
+- `idle: boolean`: Is user idle.
 
 #### Example
 
@@ -532,7 +631,21 @@ function Demo() {
 
 ### `useCookie()`
 
-Returns the current value of a cookie, a callback to update the cookie and a callback to delete the cookie.
+[View source code](https://github.com/Renna-Labs/hooks/blob/master/src/useCookie/useCookie.ts)
+
+React hook wrapper for [js-cookie](https://github.com/js-cookie/js-cookie)
+
+#### Arguments
+
+- `key: string`: Name of cookie.
+
+#### Returns
+
+Array containing
+
+- `value: any`: Current value of cookie.
+- `updateCookie: function`: Callback to update the cookie.
+- `deleteCookie: function`: Callback to delete the cookie.
 
 #### Example
 
@@ -559,7 +672,13 @@ function Demo() {
 
 ### `useDocumentTitle()`
 
+[View source code](https://github.com/Renna-Labs/hooks/blob/master/src/useDocumentTitle/useDocumentTitle.ts)
+
 Sets document.title property with React's useLayoutEffect hook. Hook is not called during server side rendering. Use this hook with client only applications. Call hook with string that should be set as document title inside any component. Hook is triggered every time value changes and value is not empty string (trailing whitespace is trimmed) or null.
+
+#### Arguments
+
+- `title: string`
 
 #### Example
 
@@ -577,7 +696,13 @@ function Demo() {
 
 ### `useDocumentVisibility()`
 
+[View source code](https://github.com/Renna-Labs/hooks/blob/master/src/useDocumentVisibility/useDocumentVisibility.ts)
+
 Returns current document.visibilityState – it allows to detect if current tab is active.
+
+#### Returns
+
+- `documentState: visible | hidden`
 
 #### Example
 
@@ -594,7 +719,28 @@ function Demo() {
 
 ### `useGeolocation()`
 
+[View source code](https://github.com/Renna-Labs/hooks/blob/master/src/useGeolocation/useGeolocation.ts)
+
 Returns user's geographic location. This hook accepts [position options](https://developer.mozilla.org/docs/Web/API/PositionOptions).
+
+#### Arguments
+
+- `options?: PositionOptions`
+
+#### Returns
+
+Object containing:
+
+- `loading: boolean`
+- `accuracy: number | null`
+- `altitude: number | null`
+- `altitudeAccuracy: number | null`
+- `heading: number | null`
+- `latitude: number | null`
+- `longitude: number | null`
+- `speed: number | null`
+- `timestamp: number | null`
+- `error?: Error`
 
 #### Example
 
@@ -617,7 +763,14 @@ function Demo() {
 
 ### `useIsomorphicEffect()`
 
+[View source code](https://github.com/Renna-Labs/hooks/blob/master/src/useIsomorphicEffect/useIsomorphicEffect.ts)
+
 Allows you to switch between useEffect during server side rendering and useLayoutEffect after hydration. Use it wherever you would use useLayoutEffect to avoid warnings during ssr.
+
+### Arguments
+
+- `callback: function`
+- `dependencies?: any[]`
 
 #### Example
 
@@ -635,7 +788,14 @@ function Demo() {
 
 ### `useWindowEvent()`
 
+[View source code](https://github.com/Renna-Labs/hooks/blob/master/src/useWindowEvent/useWindowEvent.ts)
+
 Adds an event listener to `window` object on component mount and removes it on unmount:
+
+#### Arguments
+
+- `key: string`: Any type found in [WindowEventMap](https://microsoft.github.io/PowerBI-JavaScript/interfaces/_node_modules_typedoc_node_modules_typescript_lib_lib_dom_d_.windoweventmap.html)
+- `callback: function`: Handler function to pass to event listener.
 
 #### Example
 
