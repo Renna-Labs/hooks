@@ -32,6 +32,15 @@ const { argv }: { argv: any } = yargs(hideBin(process.argv))
     process.exit(1);
   }
 
+  try {
+    await execa('yarn', ['test'], { stdio: 'inherit' });
+
+    chalk.green('All tests passed.');
+  } catch (e) {
+    chalk.red('Tests failed', e);
+    process.exit(1);
+  }
+
   chalk.white('Releasing all packages');
 
   let incrementedVersion = packageJson.version;
