@@ -6,6 +6,7 @@ export { useHover } from './useHover/useHover';
 export { useCookie } from './useCookie/useCookie';
 export { useCounter } from './useCounter/useCounter';
 export { useTimeout } from './useTimeout/useTimeout';
+export { useFavicon } from './useFavicon/useFavicon';
 export { useInterval } from './useInterval/useInterval';
 export { useFullscreen } from './useFullscreen/useFullscreen';
 export { useMediaQuery } from './useMediaQuery/useMediaQuery';

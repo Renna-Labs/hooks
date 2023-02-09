@@ -46,6 +46,7 @@ yarn add @rennalabs/hooks
   - [`useGeolocation()`](#useGeolocation)
   - [`useIsomorphicEffect()`](#useIsomorphicEffect)
   - [`useWindowEvent()`](#useWindowEvent)
+  - [`useFavicon()`](#useFavicon)
 
 ## Hooks
 
@@ -813,6 +814,38 @@ useEffect(() => {
 
 // with use-window-event hook
 useWindowEvent('keydown', handler);
+```
+
+### `useFavicon()`
+
+[View source code](https://github.com/Renna-Labs/hooks/blob/master/src/useFavicon/useFavicon.ts)
+
+Appends a `<link />` element to head component with given favicon in `React.useLayoutEffect` hook. Hook is not called during server side rendering.
+
+#### Arguments
+
+- `url: string`: Favicon url (supported formats: `.ico`, `.png`, `.svg` and `.gif`). Hook is triggered every time url changes and value is not empty string (trailing whitespace is trimmed) or null.
+
+#### Example
+
+```js
+import { useState } from 'react';
+import { useFavicon } from '@rennalabs/hooks';
+
+function Demo() {
+  const [favicon, setFavicon] = useState('https://rennalabs.xyz/favicon.ico');
+  const setTwitterFavicon = () => setFavicon('https://twitter.com/favicon.ico');
+  const setRennaLabsFavicon = () => setFavicon('https://rennalabs.xyz/favicon.ico');
+
+  useFavicon(favicon);
+
+  return (
+    <div>
+      <button onClick={setTwitterFavicon}>Twitter favicon</button>
+      <button onClick={setRennaLabsFavicon}>Renna Labs favicon</button>
+    </div>
+  );
+}
 ```
 
 ---
