@@ -77,13 +77,14 @@
       "jsx"
     ],
     "transform": {
-      "^.+\\.(js|jsx|ts|tsx)$": "babel-jest"
+      "^.+\\.(js|jsx|ts|tsx)$": "@sucrase/jest-plugin"
     }
   },
   "devDependencies": {
     "@rennalabs/eslint-config": "^1.0.2",
     "@rennalabs/prettier-config": "1.0.3",
     "@rennalabs/tsconfig": "1.1.0",
+    "@sucrase/jest-plugin": "^3.0.0",
     "@testing-library/jest-dom": "^5.16.5",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^14.4.3",
@@ -112,9 +113,10 @@
     "new-github-release-url": "^2.0.0",
     "open": "^8.4.1",
     "prettier": "^2.8.3",
+    "react-dom": "^18.2.0",
     "rimraf": "^4.1.2",
     "simple-git": "^3.16.0",
-    "ts-jest": "^29.0.5",
+    "sucrase": "^3.29.0",
     "typescript": "^4.x.x"
   },
   "dependencies": {
