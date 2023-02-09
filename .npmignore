@@ -10,3 +10,4 @@ tests
 tsconfig.json
 tsconfig.tsbuildinfo
 buildcache
+.npmrc

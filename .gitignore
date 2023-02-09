@@ -13,3 +13,4 @@ example/.cache
 .DS_Store
 .vscode
 /*.d.ts
+.npmrc
