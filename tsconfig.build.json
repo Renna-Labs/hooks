@@ -5,5 +5,5 @@
     "outDir": "./lib",
     "tsBuildInfoFile": "./buildcache/build"
   },
-  "exclude": ["**/*.test.ts", "**/*.test.tsx", "tests", "scripts", "utils"]
+  "exclude": ["**/*.test.ts", "**/*.test.tsx", "tests", "scripts"]
 }

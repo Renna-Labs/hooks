@@ -1,4 +1,4 @@
-import Logger from '../utils/logger';
+import Logger from './utils/logger';
 
 const VERSION_INCREMENT: string[] = ['patch', 'minor', 'major'];
 

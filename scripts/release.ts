@@ -8,7 +8,7 @@ import { hideBin } from 'yargs/helpers';
 import { getIncrementedVersion } from './getIncrementedVersion';
 import { setPackageVersion } from './setPackageVersion';
 import packageJson from '../package.json';
-import Logger from '../utils/logger';
+import Logger from './utils/logger';
 
 const git = simpleGit();
 const { argv }: { argv: any } = yargs(hideBin(process.argv))
