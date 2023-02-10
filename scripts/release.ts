@@ -1,5 +1,4 @@
 import path from 'path';
-import chalk from 'chalk';
 import simpleGit from 'simple-git';
 import githubRelease from 'new-github-release-url';
 import open from 'open';
@@ -9,6 +8,7 @@ import { hideBin } from 'yargs/helpers';
 import { getIncrementedVersion } from './getIncrementedVersion';
 import { setPackageVersion } from './setPackageVersion';
 import packageJson from '../package.json';
+import Logger from '../utils/logger';
 
 const git = simpleGit();
 const { argv }: { argv: any } = yargs(hideBin(process.argv))
@@ -28,27 +28,27 @@ const { argv }: { argv: any } = yargs(hideBin(process.argv))
   const status = await git.status();
 
   if (status.files.length !== 0) {
-    chalk.red('Working tree is not clean');
+    Logger.error('Working tree is not clean');
     process.exit(1);
   }
 
   try {
     await execa('yarn', ['test'], { stdio: 'inherit' });
 
-    chalk.green('All tests passed.');
+    Logger.success('All tests passed.');
   } catch (e) {
-    chalk.red('Tests failed', e);
+    Logger.error(`Tests failed: ${e}`);
     process.exit(1);
   }
 
-  chalk.white('Releasing all packages');
+  Logger.log('Releasing all packages');
 
   let incrementedVersion = packageJson.version;
 
   incrementedVersion = getIncrementedVersion(incrementedVersion, {
     type: argv._[0] as string,
   });
-  chalk.white(`New version: ${chalk.cyan(incrementedVersion)}`);
+  Logger.log(`New version: ${incrementedVersion}`);
 
   await setPackageVersion(incrementedVersion);
 
@@ -56,9 +56,9 @@ const { argv }: { argv: any } = yargs(hideBin(process.argv))
     try {
       await execa('yarn', ['build'], { stdio: 'inherit' });
 
-      chalk.green('Library was built successfully');
+      Logger.success('Library was built successfully');
     } catch (e) {
-      chalk.red('Build failed', e);
+      Logger.error(`Build failed: ${e}`);
       process.exit(1);
     }
   }
@@ -71,9 +71,9 @@ const { argv }: { argv: any } = yargs(hideBin(process.argv))
     try {
       await execa('npm', ['publish'], { stdio: 'inherit' });
 
-      chalk.green('Library was successfully published to npm');
+      Logger.success('Library was successfully published to npm');
     } catch (e) {
-      chalk.red('Publish failed', e);
+      Logger.error(`Publish failed: ${e}`);
       process.exit(1);
     }
   }

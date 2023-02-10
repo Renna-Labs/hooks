@@ -1,13 +1,13 @@
-import chalk from 'chalk';
+import Logger from '../utils/logger';
 
 const VERSION_INCREMENT: string[] = ['patch', 'minor', 'major'];
 
 export function getIncrementedVersion(version: string, options: { type: string }): string {
   if (!VERSION_INCREMENT.includes(options.type)) {
-    chalk.red(
-      `Incorrect version type: ${chalk.cyan(
-        options.type,
-      )}, it should be one of these values: ${VERSION_INCREMENT.join(', ')}`,
+    Logger.error(
+      `Incorrect version type: ${
+        options.type
+      }, it should be one of these values: ${VERSION_INCREMENT.join(', ')}`,
     );
 
     process.exit(1);
@@ -37,7 +37,7 @@ export function getIncrementedVersion(version: string, options: { type: string }
   try {
     return updateVersion(version);
   } catch (e) {
-    chalk.red('Failed to parse package.json');
+    Logger.error('Failed to parse package.json');
     process.exit(1);
     return '';
   }
