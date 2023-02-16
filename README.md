@@ -47,6 +47,8 @@ yarn add @rennalabs/hooks
   - [`useIsomorphicEffect()`](#useIsomorphicEffect)
   - [`useWindowEvent()`](#useWindowEvent)
   - [`useFavicon()`](#useFavicon)
+  - [`useDidUpdate()`](#useDidUpdate)
+  - [`useLogger()`](#useLogger)
 
 ## Hooks
 
@@ -812,7 +814,7 @@ useEffect(() => {
   return () => window.removeEventListener('keydown', handler);
 }, []);
 
-// with use-window-event hook
+// with useWindowEvent hook
 useWindowEvent('keydown', handler);
 ```
 
@@ -845,6 +847,48 @@ function Demo() {
       <button onClick={setRennaLabsFavicon}>Renna Labs favicon</button>
     </div>
   );
+}
+```
+
+### `useDidUpdate()`
+
+[View source code](https://github.com/Renna-Labs/hooks/blob/master/src/useDidUpdate/useDidUpdate.ts)
+
+Calls a given callback function when the component updates but not on the initial mount.
+
+#### Arguments
+
+- `fn: function`: Callback to be fired on update
+- `dependencies: any[]`: useEffect dependencies to watch for updates
+
+#### Example
+
+```js
+useDidUpdate(() => console.log("Won't be called when mounted"), [value]);
+```
+
+### `useLogger()`
+
+[View source code](https://github.com/Renna-Labs/hooks/blob/master/src/useLogger/useLogger.ts)
+
+Logs given values to console each time component renders, do not use in production.
+
+#### Arguments
+
+- `name: string`: Component name
+- `props: any[]`: Array of props to log on update
+
+#### Example
+
+```js
+import { useState } from 'react';
+import { useLogger } from '@rennalabs/hooks';
+
+function Demo() {
+  const [count, setCount] = useState(0);
+  useLogger('Demo', [{ count, hello: 'world' }]);
+
+  return <button onClick={() => setCount(c => c + 1)}>Update state ({count})</button>;
 }
 ```
 
